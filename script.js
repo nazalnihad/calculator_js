@@ -10,10 +10,7 @@ let a=0;
 
 keys.forEach(element => {
     element.addEventListener("click", () => {
-        // a+=element.textContent;
         input.textContent += element.textContent;
-        // console.log(parseInt(a));
-        // num1 = parseInt(a);
 
         if (element.textContent === "+") {
             if (num2 != "") {
@@ -21,15 +18,61 @@ keys.forEach(element => {
                 total = parseInt(total);
                 console.log("total " + total)
                 output.textContent = total;
+                input.textContent = total;
+                input.textContent+=" + "
             num1 = total;
             }
             num2 = "0";
         }
+
+        if (element.textContent === "-") {
+            if (num2 != "") {
+                total = num1 - parseInt(num2);
+                total = parseInt(total);
+                console.log("total " + total)
+                output.textContent = total;
+                input.textContent = total;
+                input.textContent+=" - "
+            num1 = total;
+            }
+            num2 = "0";
+        }
+
+        if (element.textContent === "x") {
+            if (num2 != "") {
+                total = parseInt(num1) * parseInt(num2);
+                total = parseInt(total);
+                console.log("total " + total)
+                output.textContent = total;
+                input.textContent = total;
+                input.textContent+=" + "
+            num1 = total;
+            }
+            num2 = "1";
+        }
+
+        if (element.textContent === "/") {
+            if (num2 != "") {
+                total = num1 / parseInt(num2);
+                total = parseInt(total);
+                console.log("total " + total)
+                output.textContent = total;
+                input.textContent = total;
+                input.textContent+=" + "
+            num1 = total;
+            }
+            num2 = "0";
+        }
+
+
         else if (num2 === "") {
             num1 += element.textContent;
             num1 = parseInt(num1);
         }
         else {
+            if (num2 === "1") {
+                num2 -= "1";
+            }
             num2 += element.textContent;
             num2 = parseInt(num2);
         }
