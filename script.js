@@ -38,18 +38,18 @@ keys.forEach(element => {
             num2 = "0";
         }
 
-        if (element.textContent === "x") {
-            if (num2 != "") {
-                total = parseInt(num1) * parseInt(num2);
-                total = parseInt(total);
-                console.log("total " + total)
-                output.textContent = total;
-                input.textContent = total;
-                input.textContent+=" + "
-            num1 = total;
-            }
-            num2 = "1";
-        }
+        // if (element.textContent === "x") {
+        //     if (num2 != "") {
+        //         total = parseInt(num1) * parseInt(num2);
+        //         total = parseInt(total);
+        //         console.log("total " + total)
+        //         output.textContent = total;
+        //         input.textContent = total;
+        //         input.textContent+=" + "
+        //     num1 = total;
+        //     }
+        //     num2 = "1";
+        // }
 
         if (element.textContent === "/") {
             if (num2 != "") {
