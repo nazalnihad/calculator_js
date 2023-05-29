@@ -21,16 +21,32 @@ keys.forEach(element => {
 
 operators.forEach(element => {
     element.addEventListener("click", () => {
-        operator = element.value;
-        // input.textContent += operator;
+        let test_val = element.value;
+        switch (test_val) {
+            case "+":
+             operator = "+";
+              break;
+            case "-":
+              operator = "-";
+              break;
+            case "x":
+                operator = "x"
+                break;
+            case "/":
+                operator = "/"
+              break;
+            default:
+              return;
+          }
+        input.textContent += operator;
 
-        if (num1 !== "" && num2 !== "") {
-            calculate();
+        if (num1 !== "" && num2 !== "" && operator!=="") {
+            calculate(operator);
         }
     })
 })
 
-function calculate() {
+function calculate(operator) {
     let result;
 
     switch (operator) {
@@ -40,7 +56,7 @@ function calculate() {
       case "-":
         result = parseInt(num1) - parseInt(num2);
         break;
-      case "*":
+      case "x":
         result = parseInt(num1) * parseInt(num2);
         break;
       case "/":
