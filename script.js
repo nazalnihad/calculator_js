@@ -2,9 +2,13 @@ const keys = document.querySelectorAll('.key')
 const input = document.querySelector('.input')
 const output = document.querySelector('.output')
 const operators = document.querySelectorAll('.operator')
+const equals = document.querySelector('.equals')
+const clear = document.querySelector('.clear')
 let num1 = "";
 let num2 = "";
 let operator = "";
+let test_count = 0;
+
 
 keys.forEach(element => {
     element.addEventListener("click", () => {
@@ -13,7 +17,7 @@ keys.forEach(element => {
         if (operator === "") {
             num1 += element.textContent;
         }
-        else {
+        else if (test_count===1){
             num2 += element.textContent;
         }
     })
@@ -21,55 +25,59 @@ keys.forEach(element => {
 
 operators.forEach(element => {
     element.addEventListener("click", () => {
-        let test_val = element.value;
-        switch (test_val) {
-            case "+":
-             operator = "+";
-              break;
-            case "-":
-              operator = "-";
-              break;
-            case "x":
-                operator = "x"
-                break;
-            case "/":
-                operator = "/"
-              break;
-            default:
-              return;
-          }
-        input.textContent += operator;
+      operator = element.value;
+      test_count += 1;
 
-        if (num1 !== "" && num2 !== "" && operator!=="") {
-            calculate(operator);
-        }
+      if (test_count > 1) {
+        input.textContent = input.textContent.slice(0, -1)+ element.value;
+        test_count -= 1;
+      }
+      else {
+        input.textContent += element.value;
+      }
+      console.log(operator)
     })
 })
 
-function calculate(operator) {
-    let result;
+equals.addEventListener("click", () => {
+  if (num1 !== "" && num2 !== "" && operator !== "") {
+    calculate(operator);
+  }
+})
 
-    switch (operator) {
-      case "+":
-        result = parseInt(num1) + parseInt(num2);
-        break;
-      case "-":
-        result = parseInt(num1) - parseInt(num2);
-        break;
-      case "x":
-        result = parseInt(num1) * parseInt(num2);
-        break;
-      case "/":
-        result = parseInt(num1) / parseInt(num2);
-        break;
-      default:
-        return;
-    }
+
   
-    output.textContent = result;
-    input.textContent = result;
-  
-    num1 = result;
-    num2 = "";
-    operator = "";
+function calculate(operator) {
+  let result;
+  switch (operator) {
+    case "+":
+      result = parseInt(num1) + parseInt(num2);
+      break;
+    case "-":
+      result = parseInt(num1) - parseInt(num2);
+      break;
+    case "*":
+      result = parseInt(num1) * parseInt(num2);
+      break;
+    case "/":
+      result = parseInt(num1) / parseInt(num2);
+      break;
+    default:
+      return;
+  }
+  test_count = 0;
+  output.textContent = result;
+  input.textContent = result;
+
+  num1 = result;
+  num2 = "";
+  operator = "";
 }
+
+clear.addEventListener("click", () => {
+  num1 = "";
+  num2 = "";
+  operator = "";
+  output.textContent = "";
+  input.textContent = "";
+})
