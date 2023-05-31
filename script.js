@@ -6,12 +6,21 @@ const equals = document.querySelector('.equals')
 const clear = document.querySelector('.clear')
 let num1 = "";
 let num2 = "";
+let result="";
 let operator = "";
 let test_count = 0;
+let plus_count;
+
 
 
 keys.forEach(element => {
-    element.addEventListener("click", () => {
+  element.addEventListener("click", () => {
+    if (result !== "") {
+      input.textContent = "";
+      num1 = "";
+      operator=""
+      result = "";
+    }
         input.textContent += element.textContent;
 
         if (operator === "") {
@@ -32,9 +41,23 @@ operators.forEach(element => {
         input.textContent = input.textContent.slice(0, -1)+ element.value;
         test_count -= 1;
       }
-      else {
+
+      // if (element.value === "+") {
+      //   plus_count += 1;
+      //   if (plus_count > 1) {
+      //     operator("+");
+      //     input.textContent = num1;
+      //     test_count += 1;
+      //     operator = "+";
+      //     result = "";
+      //     plus_count = 1;
+      //   }
+      // }
+      else{
         input.textContent += element.value;
       }
+
+      
       console.log(operator)
     })
 })
@@ -42,13 +65,13 @@ operators.forEach(element => {
 equals.addEventListener("click", () => {
   if (num1 !== "" && num2 !== "" && operator !== "") {
     calculate(operator);
+    num1
   }
 })
 
 
   
 function calculate(operator) {
-  let result;
   switch (operator) {
     case "+":
       result = parseInt(num1) + parseInt(num2);
@@ -67,7 +90,7 @@ function calculate(operator) {
   }
   test_count = 0;
   output.textContent = result;
-  input.textContent = result;
+  // input.textContent = result;
 
   num1 = result;
   num2 = "";
