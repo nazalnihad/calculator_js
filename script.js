@@ -20,14 +20,13 @@ keys.forEach(element => {
       result = "";
       equals_call = false;
     }
-        input.textContent += element.textContent;
-
-        if (operator === "") {
-            num1 += element.textContent;
-        }
-        else{
-            num2 += element.textContent;
-        }
+    input.textContent += element.textContent;
+    if (operator === "") {
+      num1 += element.textContent;
+    }
+    else{
+      num2 += element.textContent;
+    }
     })
 })
 
@@ -40,9 +39,16 @@ operators.forEach(element => {
       input.textContent = result + operator;
       num1 = result;
       num2 = "";
-    } else {
-      const lastChar = input.textContent.slice(-1);
-      if (lastChar === "+" || lastChar === "-" || lastChar === "*" || lastChar === "/") {
+    }
+    else if (result != "") {
+      input.textContent = result + operator;
+      num1 = result;
+      num2 = "";
+    equals_call = false;
+    }
+    else {
+      const last_char = input.textContent.slice(-1);
+      if (last_char === "+" || last_char === "-" || last_char === "*" || last_char === "/") {
         input.textContent = input.textContent.slice(0, -1) + operator;
       } else {
         input.textContent += operator;
@@ -80,6 +86,7 @@ function calculate(operator) {
       return;
   }
   test_count = 0;
+  result = result.toFixed(2)
   output.textContent = result;
   // input.textContent = result;
 
@@ -97,13 +104,17 @@ clear.addEventListener("click", () => {
 })
 
 decimal.addEventListener("click", () => {
-  if (!num1.includes(".") && num2 === "") {
-    num1 += ".";
-    input.textContent += ".";
-  } else if (num2 !== "" && !num2.includes(".")) {
-    num2 += ".";
-    input.textContent += ".";
-  } else {
-    return;
+  if (operator === "") {
+    if (!num1.includes(".")) {
+      num1 += ".";
+      input.textContent += ".";
+    }
+  }
+  else {
+    if (!num2.includes(".")) {
+      num2 += ".";
+      input.textContent += ".";
+    }
   }
 });
+
