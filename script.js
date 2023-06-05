@@ -58,15 +58,12 @@ operators.forEach(element => {
   });
 });
 
-
 equals.addEventListener("click", () => {
   if (num1 !== "" && num2 !== "" && operator !== "") {
     calculate(operator);
     equals_call = true;
   }
 })
-
-
   
 function calculate(operator) {
   switch (operator) {
@@ -80,13 +77,21 @@ function calculate(operator) {
       result = Number(num1) * Number(num2);
       break;
     case "/":
-      result = Number(num1) / Number(num2);
+      if (Number(num2) === 0) {
+        output.textContent = "Can't do dumbass";
+        equals_call = true;
+        console.log("sui")
+        return;
+      }
+      else {        
+        result = Number(num1) / Number(num2);
+      }
       break;
     default:
       return;
   }
   test_count = 0;
-  result = result.toFixed(2)
+  result = Math.round(result * 100) / 100;
   output.textContent = result;
   // input.textContent = result;
 
