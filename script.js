@@ -5,6 +5,7 @@ const operators = document.querySelectorAll('.operator')
 const equals = document.querySelector('.equals')
 const clear = document.querySelector('.clear')
 const decimal = document.querySelector(".decimal")
+const backspace = document.querySelector(".backspace")
 let num1 = "";
 let num2 = "";
 let result="";
@@ -104,6 +105,7 @@ clear.addEventListener("click", () => {
   num1 = "";
   num2 = "";
   operator = "";
+  result = ""
   output.textContent = "";
   input.textContent = "";
 })
@@ -123,3 +125,19 @@ decimal.addEventListener("click", () => {
   }
 });
 
+backspace.addEventListener("click", () => {
+  if (num1 !== "" && num2 === "" && operator === "") {
+    num1 = num1.slice(0,-1);
+    input.textContent = input.textContent.slice(0, -1)
+    console.log(input.textContent)
+  }
+  else if (num1 !== "" && operator !== "" && num2 !== "") {
+    num2 = num2.slice(0,-1)
+    input.textContent = input.textContent.slice(0, -1)
+    console.log(input.textContent)
+  }
+  else if (num1 != "" && operator != "" && num2 === "") {
+    operator = "";
+    input.textContent = input.textContent.slice(0, -1)
+  }
+})
