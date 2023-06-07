@@ -33,29 +33,31 @@ keys.forEach(element => {
 
 operators.forEach(element => {
   element.addEventListener("click", () => {
-    operator = element.value;
+    if (num1 != "") {
+      operator = element.value;
 
-    if (num2 !== "") {
-      calculate(operator);
-      input.textContent = result + operator;
-      num1 = result;
-      num2 = "";
-    }
-    else if (result != "") {
-      input.textContent = result + operator;
-      num1 = result;
-      num2 = "";
-    equals_call = false;
-    }
-    else {
-      const last_char = input.textContent.slice(-1);
-      if (last_char === "+" || last_char === "-" || last_char === "*" || last_char === "/") {
-        input.textContent = input.textContent.slice(0, -1) + operator;
-      } else {
-        input.textContent += operator;
+      if (num2 !== "") {
+        calculate(operator);
+        input.textContent = result + operator;
+        num1 = result;
+        num2 = "";
       }
+      else if (result != "") {
+        input.textContent = result + operator;
+        num1 = result;
+        num2 = "";
+        equals_call = false;
+      }
+      else {
+        const last_char = input.textContent.slice(-1);
+        if (last_char === "+" || last_char === "-" || last_char === "*" || last_char === "/") {
+          input.textContent = input.textContent.slice(0, -1) + operator;
+        } else {
+          input.textContent += operator;
+        }
+      }
+      console.log(operator);
     }
-    console.log(operator);
   });
 });
 
@@ -80,6 +82,7 @@ function calculate(operator) {
     case "/":
       if (Number(num2) === 0) {
         output.textContent = "Can't do dumbass";
+        num1=""
         equals_call = true;
         console.log("sui")
         return;
@@ -93,6 +96,7 @@ function calculate(operator) {
   }
   test_count = 0;
   result = Math.round(result * 100) / 100;
+  result = String(result)
   output.textContent = result;
   // input.textContent = result;
 
