@@ -1,3 +1,4 @@
+//main keys and values
 const keys = document.querySelectorAll('.key')
 const input = document.querySelector('.input')
 const output = document.querySelector('.output')
@@ -12,9 +13,11 @@ let result="";
 let operator = "";
 let equals_call = false;
 
+//key function based on desired input num1 or num2 or operator
 keys.forEach(element => {
   element.addEventListener("click", () => {
     if (equals_call) {
+      //function to start new once equal called and new key pressed
       input.textContent = "";
       num1 = "";
       operator=""
@@ -31,24 +34,28 @@ keys.forEach(element => {
     })
 })
 
+
 operators.forEach(element => {
   element.addEventListener("click", () => {
     if (num1 != "") {
       operator = element.value;
 
       if (num2 !== "") {
+        //continuous operations when operator clicked after num2 entered
         calculate(operator);
         input.textContent = result + operator;
         num1 = result;
         num2 = "";
       }
       else if (result != "") {
+        //continuous operation when operator clicked after result (bug to fix , don't allow to click at zero error)
         input.textContent = result + operator;
         num1 = result;
         num2 = "";
         equals_call = false;
       }
       else {
+        //makes sure only one operator printed and used at once
         const last_char = input.textContent.slice(-1);
         if (last_char === "+" || last_char === "-" || last_char === "*" || last_char === "/") {
           input.textContent = input.textContent.slice(0, -1) + operator;
@@ -56,18 +63,20 @@ operators.forEach(element => {
           input.textContent += operator;
         }
       }
-      console.log(operator);
+      // console.log(operator);
     }
   });
 });
 
+//equal button
 equals.addEventListener("click", () => {
   if (num1 !== "" && num2 !== "" && operator !== "") {
     calculate(operator);
     equals_call = true;
   }
 })
-  
+
+// calculate according to conditions and zero error
 function calculate(operator) {
   switch (operator) {
     case "+":
@@ -95,6 +104,8 @@ function calculate(operator) {
       return;
   }
   test_count = 0;
+
+  //rounds the number and changes to string so backspace can work on num1 after result (bug to fix -> after result backspace on num1 changes itself to old value)
   result = Math.round(result * 100) / 100;
   result = String(result)
   output.textContent = result;
@@ -105,6 +116,7 @@ function calculate(operator) {
   operator = "";
 }
 
+//clears the values and display
 clear.addEventListener("click", () => {
   num1 = "";
   num2 = "";
@@ -114,6 +126,7 @@ clear.addEventListener("click", () => {
   input.textContent = "";
 })
 
+//add decimal accordingly
 decimal.addEventListener("click", () => {
   if (operator === "") {
     if (!num1.includes(".")) {
@@ -129,6 +142,7 @@ decimal.addEventListener("click", () => {
   }
 });
 
+//backspace and change value (bug on num1 after equals call)
 backspace.addEventListener("click", () => {
   if (num1 !== "" && num2 === "" && operator === "") {
     num1 = num1.slice(0,-1);
